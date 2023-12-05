@@ -8,10 +8,32 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import InputApp from "./InputApp";
+
+const schema = yup
+.object({
+  email: yup
+    .string()
+    .required("error "),
+  password: yup
+    .string()
+    .required("error")
+})
+.required();
 
 const ModalApp = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  const {
+    control,
+    handleSubmit,
+    setFocus,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   return (
     <>
       <Button color="primary" variant="shadow" onPress={onOpen}>
@@ -26,24 +48,15 @@ const ModalApp = () => {
                 CREACT FORM
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+               
+              <InputApp
+                label={"email"}
+                name="email"
+                placeholder={"placeholder_email"}
+                control={control}
+                type="text"
+                message={errors?.email?.message || ""}
+              />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
