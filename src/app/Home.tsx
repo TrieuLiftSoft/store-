@@ -25,7 +25,7 @@ const Home = () => {
     fetchProducts();
   }, []);
   return (
-    <div >
+    <div>
       <CardApp data={listProducts} />
     </div>
   );
