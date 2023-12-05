@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
 import CardApp from "../components/CardApp";
-import NarBav from "../components/Navbar";
+import { useQuery } from 'react-query';
+
+const fetchData = async () => {
+  const response = await fetch('https://dummyjson.com/products');
+  const data = await response.json();
+  return data;
+}; 
 
 const Home = () => {
-  const [listProducts, setListProducts] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const apiUrl = "https://dummyjson.com/products"; // Replace with the actual API endpoint
-        const response = await fetch(apiUrl);
+  const { data, error, isLoading }: any = useQuery('myData', fetchData);
+  console.log(data)
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-        // Check if the response is successful (status code 200)
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const productsData = await response.json();
-        setListProducts(productsData);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
   return (
     <div>
-      <CardApp data={listProducts} />
+      <CardApp data={data} />
     </div>
   );
 };
