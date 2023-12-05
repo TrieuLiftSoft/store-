@@ -13,9 +13,7 @@ root.render(
   <React.StrictMode>
     <NextUIProvider>
       <BrowserRouter>
-        <div className="w-full h-full p-8  ">
           <App />
-        </div>
       </BrowserRouter>
     </NextUIProvider>
   </React.StrictMode>,

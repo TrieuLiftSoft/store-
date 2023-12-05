@@ -5,10 +5,14 @@ import { nextui } from "@nextui-org/react";
 const config = {
   content: [
     // ...
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+    }
   },
   darkMode: "class",
   plugins: [nextui()],
