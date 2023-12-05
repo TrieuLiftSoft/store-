@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <NextUIProvider>
       <BrowserRouter>
-          <App />
+        <App />
       </BrowserRouter>
     </NextUIProvider>
   </React.StrictMode>,
