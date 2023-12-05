@@ -24,10 +24,8 @@ const Home = () => {
 
     fetchProducts();
   }, []);
-  console.log(listProducts, "SHOWDATA");
   return (
-    <div className=" ">
-      <NarBav />
+    <div >
       <CardApp data={listProducts} />
     </div>
   );

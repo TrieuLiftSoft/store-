@@ -10,17 +10,17 @@ import {
   NavbarMenu,
 } from "@nextui-org/react";
 import Home from "./app/Home";
-import AddCard from "./app/AddCard";
 import NotFound from "./app/NotFound";
 import { useCallback, useEffect, useState } from "react";
+import NarBav from "./components/Navbar";
 
 export default function App() {
   return (
     <div>
+      <NarBav />
       <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<Home />} />
-          <Route path="add" element={<AddCard />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
