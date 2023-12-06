@@ -1,13 +1,15 @@
 import React, { useState, useRef } from "react";
 import { Controller } from "react-hook-form";
-import {Input} from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 
 const InputApp = ({
   control,
   name,
   placeholder,
   label,
+  type,
   message,
+  styleContainer,
 }: {
   message: string;
   control: any;
@@ -15,11 +17,13 @@ const InputApp = ({
   type: string;
   placeholder: string;
   label: string;
+  styleContainer: string;
 }) => {
-
   return (
-    <div className="">
-      <p>{label}</p>
+    <div className={styleContainer}>
+      <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        {label}
+      </p>
       <Controller
         control={control}
         name={name}
@@ -30,16 +34,20 @@ const InputApp = ({
           <>
             <div>
               <Input
+                className=""
                 variant={"flat"}
-                type="text"
+                type={type}
                 value={value || ""}
                 onChange={onChange}
                 onBlur={onBlur}
                 placeholder={placeholder}
-                onFocus={ref}
               />
             </div>
-            {error ? <p>{message}</p> : null}
+            {error ? (
+              <p className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {message}
+              </p>
+            ) : null}
           </>
         )}
       />

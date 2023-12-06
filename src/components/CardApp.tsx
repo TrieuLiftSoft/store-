@@ -1,29 +1,8 @@
 import React from "react";
 import RatingCard from "./RatingCard";
 import ButtonApp from "./ButtonApp";
+import { CardAppProps } from "../model/InitProducts";
 
-interface InitProducts {
-  brand: string;
-  category: string;
-  description: string;
-  discountPercentage: number;
-  id: number;
-  images: string[];
-  price: number;
-  rating: number;
-  stock: number;
-  thumbnail: string;
-  title: string;
-}
-interface dataProducts {
-  limit: number;
-  products: InitProducts[];
-  skip: number;
-  total: number;
-}
-interface CardAppProps {
-  data: dataProducts[];
-}
 const CardApp: React.FC<CardAppProps> = ({ data }) => {
   const { products }: any = data;
   return (
@@ -37,7 +16,7 @@ const CardApp: React.FC<CardAppProps> = ({ data }) => {
             <img
               className="object-cover h-48 w-full rounded-lg  "
               src={item.images[0]}
-              alt="product image"
+              alt="product"
             />
           </div>
           <div className="px-4 pb-3 flex flex-col justify-between">
@@ -46,6 +25,9 @@ const CardApp: React.FC<CardAppProps> = ({ data }) => {
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   {item.title}
                 </h5>
+                <p className="text-[14px]">
+                  Brand : <span className="text-blue-500">{item.brand}</span>
+                </p>
                 <p className="text-[14px]">Number: {item.stock}</p>
               </div>
 
