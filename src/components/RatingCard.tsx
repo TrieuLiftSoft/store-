@@ -1,6 +1,6 @@
 import React from "react";
 
-const RatingCard = ({ rating }: { rating: string }) => {
+const RatingCard = ({ rating }: { rating?: number }) => {
   return (
     <div className="flex items-center mt-2.5 mb-5">
       <div className="flex items-center space-x-1 rtl:space-x-reverse">

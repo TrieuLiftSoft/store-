@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -9,14 +9,24 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputApp from "./InputApp";
-import { InitCreateProducts } from "../model/InitProducts";
-import { useMutation } from "react-query";
+import {
+  CardAppProps,
+  InitCreateProducts,
+  InitProducts,
+} from "../model/InitProducts";
+import { useQuery, useMutation, UseQueryResult } from "react-query";
+import {
+  createProductAPI,
+  editProductAPI,
+  getProductItemIdAPI,
+} from "../api/ApiPage";
+import { handleError } from "../helpers/HandleError";
 
 const productSchema = yup.object().shape({
-  id: yup.number(),
+  id: yup.number().default(0),
   title: yup.string().required("did you forget about me? "),
   description: yup.string().required("did you forget about me?  "),
   price: yup.number().required("Required only number"),
@@ -28,54 +38,104 @@ const productSchema = yup.object().shape({
   thumbnail: yup.string().url(),
 });
 
-const ModalApp = () => {
+const ModalApp = ({
+  titleModal,
+  textBtn,
+  itemId,
+}: {
+  titleModal: string;
+  textBtn: string;
+  itemId?: number;
+}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [defaultProduct, setDefaultProduct] = useState<InitProducts>();
+
+  useEffect(() => {
+    const fetchEditProducts = async () => {
+      try {
+        if (itemId !== undefined) {
+          const response = await getProductItemIdAPI(itemId);
+          setDefaultProduct(response);
+          return response;
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    };
+
+    if (itemId && isOpen) {
+      fetchEditProducts();
+    }
+  }, [itemId, isOpen]);
+
+  const defaultValuesEdit = { ...defaultProduct };
+  delete defaultValuesEdit.images;
+
   const {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(productSchema),
+    defaultValues: useMemo(() => {
+      return defaultValuesEdit;
+    }, [itemId]),
+    resolver: yupResolver<InitCreateProducts>(productSchema),
   });
 
-  const addItemMutation = useMutation(async (data: InitCreateProducts) => {
-    const response = await fetch("https://dummyjson.com/products/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  useEffect(() => {
+    reset(defaultValuesEdit);
+  }, [itemId]);
 
-    if (!response.ok) {
-      throw new Error("Failed to add item");
-    }
-
-    return response.json();
+  const addItemMutation = useMutation({
+    mutationFn: (data: InitCreateProducts) => createProductAPI(data),
+    onSuccess: () => {
+      reset();
+      console.log("create success");
+    },
   });
-
+  const editItemMutation = useMutation({
+    mutationFn: ({
+      itemId,
+      data,
+    }: {
+      itemId: number;
+      data: InitCreateProducts;
+    }) => editProductAPI(itemId, data),
+    onSuccess: () => {
+      reset();
+      console.log("edit success");
+    },
+  });
   const submitHandler = async (data: InitCreateProducts) => {
     console.log(data, "FORM CREATE");
-    try {
-      await addItemMutation.mutateAsync(data);
-      reset();
-      console.log("success");
-    } catch (error) {
-      console.error("Error adding item:", error);
+    if (itemId !== undefined) {
+      await editItemMutation.mutate({ itemId, data });
+    } else {
+      await addItemMutation.mutate(data);
     }
   };
+
   return (
     <>
-      <Button color="primary" variant="shadow" onPress={onOpen}>
-        {" "}
-        + Create Product
-      </Button>
+      {textBtn == "Edit" ? (
+        <Button variant="shadow" onPress={onOpen}>
+          {" "}
+          {textBtn}
+        </Button>
+      ) : (
+        <Button color="primary" variant="shadow" onPress={onOpen}>
+          {" "}
+          {textBtn}
+        </Button>
+      )}
+
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader>CREACT FORM</ModalHeader>
+              <ModalHeader>{titleModal}</ModalHeader>
               <form onSubmit={handleSubmit(submitHandler)}>
                 <ModalBody className="grid  gap-4  grid-cols-2">
                   <InputApp
