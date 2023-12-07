@@ -24,11 +24,12 @@ export interface InitCreateProducts {
   title?: string;
 }
 export interface dataProducts {
-  limit: number;
-  products: InitProducts[];
-  skip: number;
-  total: number;
+  limit?: number;
+  products?: InitProducts[];
+  skip?: number;
+  total?: number;
 }
 export interface CardAppProps {
+  products: InitProducts[];
   data: dataProducts[];
 }
