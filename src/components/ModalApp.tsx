@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -9,29 +9,29 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import * as yup from "yup";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputApp from "./InputApp";
 import {
-  CardAppProps,
   InitCreateProducts,
   InitProducts,
 } from "../model/InitProducts";
-import { useQuery, useMutation, UseQueryResult } from "react-query";
+import { useMutation } from "react-query";
 import {
   createProductAPI,
   editProductAPI,
   getProductItemIdAPI,
 } from "../api/ApiPage";
 import { handleError } from "../helpers/HandleError";
+import InputSelect from "./InputRating";
 
 const productSchema = yup.object().shape({
-  id: yup.number().default(0),
+  id: yup.number(),
   title: yup.string().required("did you forget about me? "),
   description: yup.string().required("did you forget about me?  "),
   price: yup.number().required("Required only number"),
   discountPercentage: yup.number(),
-  rating: yup.number(),
+  rating: yup.number().min(1, 'Rating must be at least 1').max(5, 'Rating must be at most 5'),
   stock: yup.number().required("Required only number"),
   brand: yup.string(),
   category: yup.string(),
@@ -49,7 +49,6 @@ const ModalApp = ({
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [defaultProduct, setDefaultProduct] = useState<InitProducts>();
-
   useEffect(() => {
     const fetchEditProducts = async () => {
       try {
@@ -69,14 +68,12 @@ const ModalApp = ({
   }, [itemId, isOpen]);
 
   const defaultValuesEdit = { ...defaultProduct };
-  delete defaultValuesEdit.images;
-
+  //delete defaultValuesEdit.images;
   const {
     control,
     handleSubmit,
     reset,
-    setValue,
-    formState: { errors },
+    formState: { errors , isDirty  },
   } = useForm({
     defaultValues: useMemo(() => {
       return defaultValuesEdit;
@@ -84,9 +81,10 @@ const ModalApp = ({
     resolver: yupResolver<InitCreateProducts>(productSchema),
   });
 
+
   useEffect(() => {
     reset(defaultValuesEdit);
-  }, [itemId]);
+  }, [itemId, defaultProduct]);
 
   const addItemMutation = useMutation({
     mutationFn: (data: InitCreateProducts) => createProductAPI(data),
@@ -94,7 +92,13 @@ const ModalApp = ({
       reset();
       console.log("create success");
     },
+    onError: () => {
+      // Handle mutation error
+      console.error('create error ');
+      // You can show an error message or perform other error-related actions here
+    },
   });
+
   const editItemMutation = useMutation({
     mutationFn: ({
       itemId,
@@ -107,7 +111,13 @@ const ModalApp = ({
       reset();
       console.log("edit success");
     },
+    onError: () => {
+      console.error('edit error ');
+    },
   });
+
+
+
   const submitHandler = async (data: InitCreateProducts) => {
     console.log(data, "FORM CREATE");
     if (itemId !== undefined) {
@@ -119,7 +129,7 @@ const ModalApp = ({
 
   return (
     <>
-      {textBtn == "Edit" ? (
+      {textBtn === "Edit" ? (
         <Button variant="shadow" onPress={onOpen}>
           {" "}
           {textBtn}
@@ -166,7 +176,8 @@ const ModalApp = ({
                     type="number"
                     message={errors?.discountPercentage?.message || ""}
                   />
-                  <InputApp
+
+                  {itemId !== undefined ? <InputApp
                     styleContainer={""}
                     label={"Rating"}
                     name="rating"
@@ -174,7 +185,8 @@ const ModalApp = ({
                     control={control}
                     type="number"
                     message={errors?.rating?.message || ""}
-                  />
+                  /> : null}
+                  {itemId === undefined ? <InputSelect control={control} /> : null}
                   <InputApp
                     styleContainer={""}
                     label={"Stock"}
@@ -225,7 +237,7 @@ const ModalApp = ({
                   <Button color="danger" variant="light" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="primary" type="submit">
+                  <Button color="primary" isDisabled={!isDirty} type="submit">
                     Submit
                   </Button>
                 </ModalFooter>
