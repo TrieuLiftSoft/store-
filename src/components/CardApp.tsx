@@ -15,7 +15,7 @@ const CardApp = ({ data }: { data: CardAppProps }) => {
       {data?.products?.map((item: InitProducts, index: number) => (
         <div
           key={index}
-          className=" grid max-w-xs bg-white  rounded-lg shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
+          className=" grid max-w-xs bg-white  rounded-2xl shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
         >
           <div className="pb-2 rounded-lg  overflow-visible ">
             <img
