@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RatingCard from "./RatingCard";
 import { CardAppProps, InitProducts } from "../model/InitProducts";
 import { Button } from "@nextui-org/react";
@@ -11,7 +11,7 @@ const CardApp = ({ data }: { data: CardAppProps }) => {
   );
 
   return (
-    <div className="mt-4 mx-2  gap-4 gap-y-8 grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+    <div className="mt-4 mx-2  gap-4 gap-y-8 grid  grid-cols-2  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {data?.products?.map((item: InitProducts, index: number) => (
         <div
           key={index}
