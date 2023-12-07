@@ -10,7 +10,7 @@ export default function NarBav() {
           <Link to="/">Home</Link>
         </NavbarItem>
       </NavbarContent>
-      <ModalApp />
+      <ModalApp titleModal={"CREATE FORM"} textBtn={"Create Product"} />
     </Navbar>
   );
 }
