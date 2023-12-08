@@ -7,7 +7,11 @@ export default function NarBav() {
     <Navbar className="border-b-1">
       <NavbarContent className=" gap-4  " data-justify="center">
         <NavbarItem>
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+               Home
+            </p>
+          </Link>
         </NavbarItem>
       </NavbarContent>
       <ModalApp titleModal={"CREATE FORM"} textBtn={"Create Product"} />

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Modal,
@@ -8,35 +9,15 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputApp from "./InputApp";
-import {
-  InitCreateProducts,
-  InitProducts,
-} from "../model/InitProducts";
+import { InitItemProducts, InitProducts } from "../model/InitProducts";
 import { useMutation } from "react-query";
-import {
-  createProductAPI,
-  editProductAPI,
-  getProductItemIdAPI,
-} from "../api/ApiPage";
+import { createProductAPI, editProductAPI, getItemIdAPI } from "../api/ApiPage";
 import { handleError } from "../helpers/HandleError";
 import InputSelect from "./InputRating";
-
-const productSchema = yup.object().shape({
-  id: yup.number(),
-  title: yup.string().required("did you forget about me? "),
-  description: yup.string().required("did you forget about me?  "),
-  price: yup.number().required("Required only number"),
-  discountPercentage: yup.number(),
-  rating: yup.number().min(1, 'Rating must be at least 1').max(5, 'Rating must be at most 5'),
-  stock: yup.number().required("Required only number"),
-  brand: yup.string(),
-  category: yup.string(),
-  thumbnail: yup.string().url(),
-});
+import productSchema from "../data/validate";
 
 const ModalApp = ({
   titleModal,
@@ -49,11 +30,14 @@ const ModalApp = ({
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [defaultProduct, setDefaultProduct] = useState<InitProducts>();
+  const defaultValuesEdit = { ...defaultProduct };
+  ///////
+  //// call api product edit
   useEffect(() => {
     const fetchEditProducts = async () => {
       try {
         if (itemId !== undefined) {
-          const response = await getProductItemIdAPI(itemId);
+          const response = await getItemIdAPI(itemId);
           setDefaultProduct(response);
           return response;
         }
@@ -67,34 +51,36 @@ const ModalApp = ({
     }
   }, [itemId, isOpen]);
 
-  const defaultValuesEdit = { ...defaultProduct };
-  //delete defaultValuesEdit.images;
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors , isDirty  },
-  } = useForm({
-    defaultValues: useMemo(() => {
-      return defaultValuesEdit;
-    }, [itemId]),
-    resolver: yupResolver<InitCreateProducts>(productSchema),
-  });
-
-
+  /////
+  //reset state  using edit form
   useEffect(() => {
     reset(defaultValuesEdit);
   }, [itemId, defaultProduct]);
 
+  /////
+  /// useForm
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm({
+    defaultValues: defaultValuesEdit,
+    resolver: yupResolver<InitItemProducts>(productSchema),
+  });
+  /////
+  /// handle mMutation
+
   const addItemMutation = useMutation({
-    mutationFn: (data: InitCreateProducts) => createProductAPI(data),
+    mutationFn: (data: InitItemProducts) => createProductAPI(data),
     onSuccess: () => {
       reset();
       console.log("create success");
     },
     onError: () => {
       // Handle mutation error
-      console.error('create error ');
+      console.error("create error ");
       // You can show an error message or perform other error-related actions here
     },
   });
@@ -105,20 +91,20 @@ const ModalApp = ({
       data,
     }: {
       itemId: number;
-      data: InitCreateProducts;
+      data: InitItemProducts;
     }) => editProductAPI(itemId, data),
     onSuccess: () => {
       reset();
       console.log("edit success");
     },
     onError: () => {
-      console.error('edit error ');
+      console.error("edit error ");
     },
   });
+  ////
+  //handel form
 
-
-
-  const submitHandler = async (data: InitCreateProducts) => {
+  const onSubmit = async (data: InitItemProducts) => {
     console.log(data, "FORM CREATE");
     if (itemId !== undefined) {
       await editItemMutation.mutate({ itemId, data });
@@ -126,6 +112,7 @@ const ModalApp = ({
       await addItemMutation.mutate(data);
     }
   };
+  ///
 
   return (
     <>
@@ -146,7 +133,7 @@ const ModalApp = ({
           {(onClose) => (
             <>
               <ModalHeader>{titleModal}</ModalHeader>
-              <form onSubmit={handleSubmit(submitHandler)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <ModalBody className="grid  gap-4  grid-cols-2">
                   <InputApp
                     styleContainer={""}
@@ -177,16 +164,20 @@ const ModalApp = ({
                     message={errors?.discountPercentage?.message || ""}
                   />
 
-                  {itemId !== undefined ? <InputApp
-                    styleContainer={""}
-                    label={"Rating"}
-                    name="rating"
-                    placeholder={"Please enter rating"}
-                    control={control}
-                    type="number"
-                    message={errors?.rating?.message || ""}
-                  /> : null}
-                  {itemId === undefined ? <InputSelect control={control} /> : null}
+                  {itemId !== undefined ? (
+                    <InputApp
+                      styleContainer={""}
+                      label={"Rating"}
+                      name="rating"
+                      placeholder={"Please enter rating"}
+                      control={control}
+                      type="number"
+                      message={errors?.rating?.message || ""}
+                    />
+                  ) : null}
+                  {itemId === undefined ? (
+                    <InputSelect control={control} />
+                  ) : null}
                   <InputApp
                     styleContainer={""}
                     label={"Stock"}
@@ -237,9 +228,15 @@ const ModalApp = ({
                   <Button color="danger" variant="light" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="primary" isDisabled={!isDirty} type="submit">
-                    Submit
-                  </Button>
+                  {textBtn === "Edit" ? (
+                    <Button color="primary" isDisabled={!isDirty} type="submit">
+                      Submit
+                    </Button>
+                  ) : (
+                    <Button color="primary" type="submit">
+                      Submit
+                    </Button>
+                  )}
                 </ModalFooter>
               </form>
             </>

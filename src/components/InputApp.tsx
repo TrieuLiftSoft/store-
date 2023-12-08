@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "@nextui-org/react";
+import { InputProps } from "../model/InitComponents";
 
-const InputApp = ({
+const InputApp: React.FC<InputProps> = ({
   control,
   name,
   placeholder,
@@ -10,14 +11,6 @@ const InputApp = ({
   type,
   message,
   styleContainer,
-}: {
-  message: string;
-  control: any;
-  name: string;
-  type: string;
-  placeholder: string;
-  label: string;
-  styleContainer: string;
 }) => {
   return (
     <div className={styleContainer}>
