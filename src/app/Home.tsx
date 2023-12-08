@@ -1,10 +1,12 @@
 import React from "react";
-import CardApp from "../components/CardApp";
+import CardScreen from "../components/CardScreen";
 import useItemStore from "../store/ZustandStore";
-import { useProductsAllQuery } from "../api/useQueryProduct";
+import { useQueryProducts } from "../api/useQueryProduct";
+import PaginationScreen from "../components/PaginationScreen";
 
 const Home = () => {
-  const { data: ProductsAll, isLoading, error } = useProductsAllQuery();
+  const { data: ProductsAll, isLoading, error } = useQueryProducts();
+
   const totalQuantity = useItemStore((state: any) => state.getTotalQuantity());
   if (isLoading) {
     return <p>Loading...</p>;
@@ -14,14 +16,20 @@ const Home = () => {
   }
   return (
     <div>
-      {ProductsAll ? (
-        <>
-          <p className="text-red-500">Quantity: {totalQuantity}</p>
-          <CardApp data={ProductsAll} />
-        </>
-      ) : (
-        <p>No products available</p>
-      )}
+      <div className="h-[35vh] m-10">
+        <PaginationScreen />
+      </div>
+
+      <div className="bg-white">
+        {ProductsAll ? (
+          <>
+            <p className="text-red-500">Quantity: {totalQuantity}</p>
+            <CardScreen data={ProductsAll} />
+          </>
+        ) : (
+          <p>No products available</p>
+        )}
+      </div>
     </div>
   );
 };
