@@ -1,3 +1,4 @@
+import { Pagination } from "@nextui-org/react";
 export interface InitProducts {
   brand?: string;
   category?: string;
@@ -11,7 +12,7 @@ export interface InitProducts {
   thumbnail?: string;
   title?: string;
 }
-export interface InitCreateProducts {
+export interface InitItemProducts {
   brand?: string;
   category?: string;
   description?: string;
@@ -32,4 +33,16 @@ export interface dataProducts {
 export interface CardAppProps {
   products: InitProducts[];
   data: dataProducts[];
+}
+
+export interface InitProductsPagination {
+  id: number;
+  title: string;
+  price: number;
+}
+export interface InitPagination {
+  products: InitProductsPagination[];
+  total: number;
+  skip: number;
+  limit: number;
 }

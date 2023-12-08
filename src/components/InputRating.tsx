@@ -1,28 +1,20 @@
 import * as React from "react";
-import { Controller } from "react-hook-form";
+import { Control, Controller, FieldValues } from "react-hook-form";
 import { SelectItem, Select } from "@nextui-org/react";
+import { ratingData } from "../data/defaultData";
 
-const  ratingData=  [
-    { value: 0 ,label:""},
-    { value: 1, label: "1 ⭐" },
-    { value: 2, label: "2 ⭐⭐" },
-    { value: 3, label: "3 ⭐⭐⭐" },
-    { value: 4, label: "4 ⭐⭐⭐⭐" },
-    { value: 5, label: "5 ⭐⭐⭐⭐⭐" },
-];
-const InputSelect = ({ control }: { control: any }) => {
-
+const InputSelect = ({ control }: { control?: Control<FieldValues> }) => {
   return (
-    <section >
-        <label htmlFor="rating-select">Rating</label>
+    <section>
+      <label htmlFor="rating-select">Rating</label>
       <Controller
         name="rating"
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
             <Select
-            id="rating-select"
-            label="Rating" 
+              id="rating-select"
+              label="Rating"
               value={value}
               onChange={onChange}
             >

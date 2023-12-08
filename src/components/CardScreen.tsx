@@ -5,17 +5,13 @@ import { Button } from "@nextui-org/react";
 import useItemStore from "../store/ZustandStore";
 import ModalApp from "./ModalApp";
 
-const CardApp = ({ data }: { data: CardAppProps }) => {
-  const addItem = useItemStore(
-    (state: { addItem: () => void }) => state.addItem,
-  );
-
+const CardScreen = ({ data }: { data: CardAppProps }) => {
   return (
     <div className="mt-4 mx-2  gap-4 gap-y-8 grid  grid-cols-2  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-      {data?.products?.map((item: InitProducts, index: number) => (
+      {data?.products?.map((item: InitProducts) => (
         <div
-          key={index}
-          className=" grid max-w-xs bg-white  rounded-lg shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
+          key={item.id}
+          className=" grid max-w-xs bg-white rounded-2xl shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
         >
           <div className="pb-2 rounded-lg  overflow-visible ">
             <img
@@ -40,7 +36,7 @@ const CardApp = ({ data }: { data: CardAppProps }) => {
                 </div>
 
                 <p className="text-[14px]">
-                  Brand : <span className="text-blue-500">{item.brand}</span>
+                  Brand : <span className="text-blue-500">{item?.brand}</span>
                 </p>
                 <p className="text-[14px]">Number: {item?.stock}</p>
               </div>
@@ -51,7 +47,7 @@ const CardApp = ({ data }: { data: CardAppProps }) => {
             </div>
             <div className="flex flex-col items-center justify-between">
               <span className="text-4xl font-bold text-gray-900 dark:text-white">
-                ${item.price}
+                ${item?.price}
               </span>
               <p className="text-red-500 text-[14px]">
                 -%{item?.discountPercentage}
@@ -61,7 +57,7 @@ const CardApp = ({ data }: { data: CardAppProps }) => {
                 className="w-full"
                 color="primary"
                 variant="shadow"
-                onClick={addItem}
+                onClick={() => console.log("1")}
               >
                 ADD ITEM
               </Button>
@@ -72,4 +68,4 @@ const CardApp = ({ data }: { data: CardAppProps }) => {
     </div>
   );
 };
-export default CardApp;
+export default CardScreen;
