@@ -7,7 +7,6 @@ import PaginationScreen from "../components/PaginationScreen";
 const Home = () => {
   const { data: ProductsAll, isLoading, error } = useQueryProducts();
 
-  const totalQuantity = useItemStore((state: any) => state.getTotalQuantity());
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -23,7 +22,6 @@ const Home = () => {
       <div className="bg-white">
         {ProductsAll ? (
           <>
-            <p className="text-red-500">Quantity: {totalQuantity}</p>
             <CardScreen data={ProductsAll} />
           </>
         ) : (

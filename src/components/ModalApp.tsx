@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -18,6 +18,7 @@ import { createProductAPI, editProductAPI, getItemIdAPI } from "../api/ApiPage";
 import { handleError } from "../helpers/HandleError";
 import InputSelect from "./InputRating";
 import productSchema from "../data/validate";
+import useNotification from "../store/NotificationStore";
 
 const ModalApp = ({
   titleModal,
@@ -28,6 +29,7 @@ const ModalApp = ({
   textBtn: string;
   itemId?: number;
 }) => {
+  const setSuccessTrue = useNotification((state) => state.setSuccessTrue);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [defaultProduct, setDefaultProduct] = useState<InitProducts>();
   const defaultValuesEdit = { ...defaultProduct };
@@ -76,6 +78,7 @@ const ModalApp = ({
     mutationFn: (data: InitItemProducts) => createProductAPI(data),
     onSuccess: () => {
       reset();
+      setSuccessTrue();
       console.log("create success");
     },
     onError: () => {
@@ -94,6 +97,7 @@ const ModalApp = ({
       data: InitItemProducts;
     }) => editProductAPI(itemId, data),
     onSuccess: () => {
+      setSuccessTrue();
       reset();
       console.log("edit success");
     },
