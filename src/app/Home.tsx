@@ -19,7 +19,7 @@ const Home = () => {
         <PaginationScreen />
       </div>
 
-      <div className="bg-white">
+      <div className="bg-white py-10 mx-5">
         {ProductsAll ? (
           <>
             <CardScreen data={ProductsAll} />
