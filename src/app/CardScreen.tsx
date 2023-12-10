@@ -1,9 +1,9 @@
 import React from "react";
-import RatingCard from "./RatingCard";
+import RatingCard from "../components/RatingCard";
 import { CardAppProps, InitProducts } from "../model/InitProducts";
 import { Button } from "@nextui-org/react";
-import useItemStore from "../store/ZustandStore";
-import ModalApp from "./ModalApp";
+import ModalApp from "../components/modal/ModalApp";
+import ModalDelete from "../components/modal/ModalDelete";
 
 const CardScreen = ({ data }: { data: CardAppProps }) => {
   return (
@@ -11,7 +11,7 @@ const CardScreen = ({ data }: { data: CardAppProps }) => {
       {data?.products?.map((item: InitProducts) => (
         <div
           key={item.id}
-          className=" grid max-w-xs bg-white rounded-2xl shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
+          className=" relative grid max-w-xs bg-white rounded-2xl shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
         >
           <div className="pb-2 rounded-lg  overflow-visible ">
             <img
@@ -19,6 +19,7 @@ const CardScreen = ({ data }: { data: CardAppProps }) => {
               src={item?.images[0]}
               alt="product"
             />
+            <ModalDelete id={item.id} />
           </div>
           <div className="px-4 pb-3 flex flex-col justify-between">
             <div className="flex flex-col">

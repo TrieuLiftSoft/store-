@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import { Pagination } from "@nextui-org/react";
 import { useQueryPagination } from "../api/useQueryProduct";
-import { columns } from "../data/defaultData";
+import { PaginationTable, columns } from "../data/defaultData";
 
 const pageSize = 5;
 const totalPage = 10;
@@ -24,7 +24,33 @@ const PaginationScreen = () => {
   } = useQueryPagination(pageSize, skipState);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Table aria-label="Example  table with dynamic content" className="">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn key={column.key}>{column.label}</TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={PaginationTable}>
+            {(item) => (
+              <TableRow key={item.id}>
+                {(columnKey) => (
+                  <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        <Pagination
+          className="flex justify-center mt-1 overflow-auto"
+          isCompact
+          showControls
+          total={10}
+          initialPage={1}
+        />
+      </>
+    );
   }
 
   if (isError) {

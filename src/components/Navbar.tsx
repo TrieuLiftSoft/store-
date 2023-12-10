@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/react";
-import ModalApp from "./ModalApp";
-import ModalSuccess from "./ModalSuccess";
+import ModalApp from "./modal/ModalApp";
+import ModalSuccess from "./modal/ModalSuccess";
 
 export default function NarBav() {
   return (

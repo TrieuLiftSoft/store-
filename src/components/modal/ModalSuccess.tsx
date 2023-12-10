@@ -7,7 +7,7 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
-import useNotification from "../store/NotificationStore";
+import useNotification from "../../store/NotificationStore";
 
 const ModalSuccess = () => {
   const isSuccess = useNotification((state) => state.isSuccess);

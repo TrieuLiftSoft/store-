@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import { SelectItem, Select } from "@nextui-org/react";
-import { ratingData } from "../data/defaultData";
+import { ratingData } from "../../data/defaultData";
 
 const InputSelect = ({ control }: { control?: Control<FieldValues> }) => {
   return (
