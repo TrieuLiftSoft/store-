@@ -1,8 +1,7 @@
 import React from "react";
-import CardScreen from "../components/CardScreen";
-import useItemStore from "../store/ZustandStore";
+import CardScreen from "./CardScreen";
 import { useQueryProducts } from "../api/useQueryProduct";
-import PaginationScreen from "../components/PaginationScreen";
+import PaginationScreen from "./PaginationScreen";
 
 const Home = () => {
   const { data: ProductsAll, isLoading, error } = useQueryProducts();

@@ -1,10 +1,5 @@
-import {create}from "zustand";
-
-interface MyStore {
-  isSuccess: boolean;
-  setSuccessTrue: () => void;
-  setSuccessFalse: () => void;
-}
+import { create } from "zustand";
+import { MyStore } from "../model/InitStore";
 
 const useNotification = create<MyStore>((set) => ({
   isSuccess: false,

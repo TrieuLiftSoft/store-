@@ -4,13 +4,16 @@ const productSchema = yup.object().shape({
   id: yup.number(),
   title: yup.string().required("did you forget about me? "),
   description: yup.string().required("did you forget about me?  "),
-  price: yup.number().required("Required only number"),
-  discountPercentage: yup.number(),
-  rating: yup
+  price: yup
     .number()
-    .min(1, "Rating must be at least 1")
-    .max(5, "Rating must be at most 5"),
-  stock: yup.number().required("Required only number"),
+    .typeError("you must specify a number")
+    .required("Required only number"),
+  discountPercentage: yup.number().typeError("you must specify a number"),
+  rating: yup.number(),
+  stock: yup
+    .number()
+    .typeError("you must specify a number")
+    .required("Required only number"),
   brand: yup.string(),
   category: yup.string(),
   thumbnail: yup.string().url(),

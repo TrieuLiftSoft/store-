@@ -4,7 +4,7 @@ export interface InitProducts {
   category?: string;
   description?: string;
   discountPercentage?: number;
-  id?: number;
+  id: number;
   images: string[];
   price?: number;
   rating?: number;

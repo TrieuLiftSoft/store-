@@ -14,7 +14,7 @@ export const createProductAPI = (
   return apiClient.post("/products/add", data);
 };
 
-export const getItemIdAPI = (itemID: number): Promise<InitProducts> => {
+export const getItemAPI = (itemID: number): Promise<InitProducts> => {
   return apiClient.get(`/products/${itemID}`);
 };
 
@@ -29,4 +29,8 @@ export const getPaginationAPI = (limit: number, skip: number) => {
   return apiClient.get(
     `/products?limit=${limit}&skip=${skip}&select=title,price`,
   );
+};
+
+export const deleteItemAPI = (itemID: number) => {
+  return apiClient.delete(`/products/${itemID}`);
 };
