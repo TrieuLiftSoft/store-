@@ -1,36 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, ModalBody } from "@nextui-org/react";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider } from "react-hook-form";
 import InputApp from "../input/InputApp";
-import { InitItemProducts, InitProducts } from "../../model/InitProducts";
+import { InitItemProducts } from "../../model/InitProducts";
 import { useMutation } from "react-query";
-import {
-  createProductAPI,
-  editProductAPI,
-  getItemAPI,
-} from "../../api/ApiPage";
-import { handleError } from "../../helpers/HandleError";
+import { createProductAPI, editProductAPI } from "../../api/ApiPage";
 import InputSelect from "../input/InputRating";
-import productSchema from "../../data/validate";
 import useNotification from "../../store/NotificationStore";
 import TextareaApp from "../input/TextareaApp";
 import { useCreateForm } from "../../data/useFormdata";
+import { useQueryEdit } from "../../api/useQueryProduct";
 
 const FromCreateApp = ({
   textBtn,
   itemId,
-  isOpen,
 }: {
-  isOpen: boolean;
   textBtn: string;
   itemId?: number;
 }) => {
+  const { data: editProduct } = useQueryEdit(itemId);
   const setSuccessTrue = useNotification((state) => state.setSuccessTrue);
-  const [defaultProduct, setDefaultProduct] = useState<InitProducts>();
-  const defaultValuesEdit = { ...defaultProduct };
-  const methods = useCreateForm(defaultValuesEdit);
+  const defaultValuesEdit = { ...editProduct };
+  const methods = useCreateForm({ defaultValuesEdit });
 
   const {
     handleSubmit,
@@ -38,35 +30,14 @@ const FromCreateApp = ({
     formState: { isDirty },
   } = methods;
 
-  ///////
-  //// call api product edit
-  useEffect(() => {
-    const fetchEditProducts = async () => {
-      try {
-        if (itemId !== undefined) {
-          const response = await getItemAPI(itemId);
-          setDefaultProduct(response);
-          return response;
-        }
-      } catch (error) {
-        handleError(error);
-      }
-    };
-
-    if (itemId && isOpen) {
-      fetchEditProducts();
-    }
-  }, [itemId, isOpen]);
-
   /////
   //reset state  using edit form
   useEffect(() => {
     reset(defaultValuesEdit);
-  }, [itemId, defaultProduct]);
+  }, [itemId, editProduct]);
 
   /////
   /// handle mMutation
-
   const addItemMutation = useMutation({
     mutationFn: ({ data }: { data: InitItemProducts }) =>
       createProductAPI(data),

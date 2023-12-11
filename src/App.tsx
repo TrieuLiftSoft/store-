@@ -1,17 +1,6 @@
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Button,
-  NavbarMenuToggle,
-  NavbarMenuItem,
-  NavbarMenu,
-} from "@nextui-org/react";
+import { Routes, Route } from "react-router-dom";
 import Home from "./app/Home";
 import NotFound from "./app/NotFound";
-import { useCallback, useEffect, useState } from "react";
 import NarBav from "./components/Navbar";
 
 export default function App() {

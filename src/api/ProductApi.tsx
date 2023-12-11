@@ -1,4 +1,9 @@
-import { deleteItemAPI, getPaginationAPI, getProductsAPI } from "./ApiPage";
+import {
+  deleteItemAPI,
+  getItemAPI,
+  getPaginationAPI,
+  getProductsAPI,
+} from "./ApiPage";
 import { handleError } from "../helpers/HandleError";
 
 export const fetchProducts = async () => {
@@ -23,6 +28,17 @@ export const fetchDeleteProducts = async (itemId: number) => {
     const response = await deleteItemAPI(itemId);
     console.log("delete success");
     return response;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const fetchEditProducts = async (id?: number) => {
+  try {
+    if (id !== undefined) {
+      const response = await getItemAPI(id);
+      return response;
+    }
   } catch (error) {
     handleError(error);
   }

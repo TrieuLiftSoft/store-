@@ -13,7 +13,6 @@ const FormCart = () => {
     getTotalQuantity,
     getTotalPrice,
   } = useStoreProduct();
-  console.log(cart);
   const handleAddToCart = (item: InitProducts) => {
     addToCart(item, 1);
   };

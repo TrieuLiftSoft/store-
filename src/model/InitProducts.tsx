@@ -1,4 +1,3 @@
-import { Pagination } from "@nextui-org/react";
 export interface InitProducts {
   brand?: string;
   category?: string;

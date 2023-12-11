@@ -1,6 +1,14 @@
 import { useQuery, UseQueryResult } from "react-query";
-import { CardAppProps, InitPagination } from "../model/InitProducts";
-import { fetchPaginationAPI, fetchProducts } from "./ProductApi";
+import {
+  CardAppProps,
+  InitPagination,
+  InitProducts,
+} from "../model/InitProducts";
+import {
+  fetchEditProducts,
+  fetchPaginationAPI,
+  fetchProducts,
+} from "./ProductApi";
 
 export const useQueryProducts = () => {
   return useQuery({
@@ -13,7 +21,18 @@ export const useQueryPagination = (
   limit: number,
   skip: number,
 ): UseQueryResult<InitPagination, Error> => {
-  return useQuery(["paginationData", limit, skip], () =>
-    fetchPaginationAPI(limit, skip),
-  );
+  return useQuery({
+    queryKey: ["paginationData", limit, skip],
+    queryFn: () => fetchPaginationAPI(limit, skip),
+  });
+};
+
+export const useQueryEdit = (
+  id?: number,
+): UseQueryResult<InitProducts, Error> => {
+  return useQuery({
+    enabled: id !== undefined,
+    queryKey: ["editProduct", id],
+    queryFn: () => fetchEditProducts(id),
+  });
 };
