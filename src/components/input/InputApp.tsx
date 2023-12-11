@@ -16,7 +16,7 @@ const InputApp: React.FC<IInputProps> = ({
     control,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
+
   return (
     <Controller
       control={control}
