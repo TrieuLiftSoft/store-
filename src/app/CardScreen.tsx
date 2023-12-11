@@ -7,7 +7,7 @@ import ModalDelete from "../components/modal/ModalDelete";
 import useStoreProduct from "../store/ZustandStore";
 
 const CardScreen = ({ data }: { data: CardAppProps }) => {
-  const { cart, addToCart } = useStoreProduct();
+  const { addToCart } = useStoreProduct();
 
   const handleAddToCart = (item: InitProducts) => {
     addToCart(item, 1);

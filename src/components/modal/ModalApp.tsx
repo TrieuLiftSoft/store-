@@ -39,11 +39,7 @@ const ModalApp = ({
           {(onClose) => (
             <>
               <ModalHeader>{titleModal}</ModalHeader>
-              <FromCreateApp
-                textBtn={textBtn}
-                itemId={itemId}
-                isOpen={isOpen}
-              />
+              <FromCreateApp textBtn={textBtn} itemId={itemId} />
             </>
           )}
         </ModalContent>
