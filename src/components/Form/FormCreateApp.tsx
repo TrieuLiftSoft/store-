@@ -3,15 +3,20 @@ import React, { useEffect, useState } from "react";
 import { Button, ModalBody } from "@nextui-org/react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputApp from "./input/InputApp";
-import { InitItemProducts, InitProducts } from "../model/InitProducts";
+import InputApp from "../input/InputApp";
+import { InitItemProducts, InitProducts } from "../../model/InitProducts";
 import { useMutation } from "react-query";
-import { createProductAPI, editProductAPI, getItemAPI } from "../api/ApiPage";
-import { handleError } from "../helpers/HandleError";
-import InputSelect from "./input/InputRating";
-import productSchema from "../data/validate";
-import useNotification from "../store/NotificationStore";
-import TextareaApp from "./input/TextareaApp";
+import {
+  createProductAPI,
+  editProductAPI,
+  getItemAPI,
+} from "../../api/ApiPage";
+import { handleError } from "../../helpers/HandleError";
+import InputSelect from "../input/InputRating";
+import productSchema from "../../data/validate";
+import useNotification from "../../store/NotificationStore";
+import TextareaApp from "../input/TextareaApp";
+import { useCreateForm } from "../../data/useFormdata";
 
 const FromCreateApp = ({
   textBtn,
@@ -25,16 +30,14 @@ const FromCreateApp = ({
   const setSuccessTrue = useNotification((state) => state.setSuccessTrue);
   const [defaultProduct, setDefaultProduct] = useState<InitProducts>();
   const defaultValuesEdit = { ...defaultProduct };
-  const methods = useForm({
-    defaultValues: defaultValuesEdit,
-    resolver: yupResolver<InitItemProducts>(productSchema),
-  });
+  const methods = useCreateForm(defaultValuesEdit);
 
   const {
     handleSubmit,
     reset,
     formState: { isDirty },
   } = methods;
+
   ///////
   //// call api product edit
   useEffect(() => {
@@ -65,15 +68,16 @@ const FromCreateApp = ({
   /// handle mMutation
 
   const addItemMutation = useMutation({
-    mutationFn: (data: InitItemProducts) => createProductAPI(data),
-    onSuccess: () => {
+    mutationFn: ({ data }: { data: InitItemProducts }) =>
+      createProductAPI(data),
+    onSuccess: (data) => {
       reset();
       setSuccessTrue();
-      console.log("create success");
+      console.log(data, "create success");
     },
-    onError: () => {
+    onError: (error) => {
       // Handle mutation error
-      console.error("create error ");
+      console.error(error, "create error ");
       // You can show an error message or perform other error-related actions here
     },
   });
@@ -86,13 +90,13 @@ const FromCreateApp = ({
       itemId: number;
       data: InitItemProducts;
     }) => editProductAPI(itemId, data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       setSuccessTrue();
       reset();
-      console.log("edit success");
+      console.log(data, "edit success");
     },
-    onError: () => {
-      console.error("edit error ");
+    onError: (error) => {
+      console.error(error, "edit error ");
     },
   });
   ////
@@ -103,7 +107,7 @@ const FromCreateApp = ({
     if (itemId !== undefined) {
       await editItemMutation.mutate({ itemId, data });
     } else {
-      await addItemMutation.mutate(data);
+      await addItemMutation.mutate({ data });
     }
   };
   ///

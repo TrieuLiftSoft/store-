@@ -6,7 +6,7 @@ export interface InitProducts {
   discountPercentage?: number;
   id: number;
   images: string[];
-  price?: number;
+  price: number;
   rating?: number;
   stock?: number;
   thumbnail?: string;

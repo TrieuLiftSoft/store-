@@ -2,9 +2,10 @@ import React from "react";
 import CardScreen from "./CardScreen";
 import { useQueryProducts } from "../api/useQueryProduct";
 import PaginationScreen from "./PaginationScreen";
+import PopoverApp from "../components/PopoverApp";
 
 const Home = () => {
-  const { data: ProductsAll, isLoading, error } = useQueryProducts();
+  const { data: productsAll, isLoading, error } = useQueryProducts();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -17,11 +18,14 @@ const Home = () => {
       <div className="h-[35vh] m-10">
         <PaginationScreen />
       </div>
+      <div className="flex justify-end mr-5">
+        <PopoverApp />
+      </div>
 
       <div className="bg-white py-10 mx-5">
-        {ProductsAll ? (
+        {productsAll ? (
           <>
-            <CardScreen data={ProductsAll} />
+            <CardScreen data={productsAll} />
           </>
         ) : (
           <p>No products available</p>

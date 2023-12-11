@@ -20,7 +20,7 @@ const PaginationScreen = () => {
   const {
     isLoading,
     isError,
-    data: PaginationData,
+    data: paginationData,
   } = useQueryPagination(pageSize, skipState);
 
   if (isLoading) {
@@ -65,7 +65,7 @@ const PaginationScreen = () => {
             <TableColumn key={column.key}>{column.label}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={PaginationData?.products}>
+        <TableBody items={paginationData?.products}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

@@ -4,7 +4,7 @@ import { fetchPaginationAPI, fetchProducts } from "./ProductApi";
 
 export const useQueryProducts = () => {
   return useQuery({
-    queryKey: ["ProductsAll"],
+    queryKey: ["productsAll"],
     queryFn: fetchProducts,
   }) as UseQueryResult<CardAppProps, Error>;
 };
@@ -13,7 +13,7 @@ export const useQueryPagination = (
   limit: number,
   skip: number,
 ): UseQueryResult<InitPagination, Error> => {
-  return useQuery(["PaginationData", limit, skip], () =>
+  return useQuery(["paginationData", limit, skip], () =>
     fetchPaginationAPI(limit, skip),
   );
 };
