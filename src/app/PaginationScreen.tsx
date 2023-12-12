@@ -22,11 +22,15 @@ const PaginationScreen = () => {
     isError,
     data: paginationData,
   } = useQueryPagination(pageSize, skipState);
-
+  const handlePagination = (page: number) => {
+    if (page !== null) {
+      setSkipState(page);
+    }
+  };
   if (isLoading) {
     return (
       <>
-        <Table aria-label="Example  table with dynamic content" className="">
+        <Table aria-label="Example table with dynamic content" className="">
           <TableHeader columns={columns}>
             {(column) => (
               <TableColumn key={column.key}>{column.label}</TableColumn>
@@ -80,11 +84,7 @@ const PaginationScreen = () => {
         isCompact
         showControls
         total={totalPage}
-        onChange={(page) => {
-          if (page !== null) {
-            setSkipState(page);
-          }
-        }}
+        onChange={handlePagination}
         initialPage={1}
       />
     </div>

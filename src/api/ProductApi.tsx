@@ -14,6 +14,7 @@ export const fetchProducts = async () => {
     handleError(error);
   }
 };
+
 export const fetchPaginationAPI = async (limit: number, skip: any) => {
   try {
     const response = await getPaginationAPI(limit, skip);

@@ -3,6 +3,7 @@ import CardScreen from "./CardScreen";
 import { useQueryProducts } from "../api/useQueryProduct";
 import PaginationScreen from "./PaginationScreen";
 import PopoverApp from "../components/PopoverApp";
+import NarBav from "../components/Navbar";
 
 const Home = () => {
   const { data: productsAll, isLoading, error } = useQueryProducts();
@@ -14,17 +15,17 @@ const Home = () => {
     return <p>Error: {error.message}</p>;
   }
   return (
-    <div>
+    <div className="">
+      <NarBav />
       <div className="h-[35vh] m-10">
         <PaginationScreen />
       </div>
-      <div className="flex justify-end mr-5">
-        <PopoverApp />
-      </div>
-
       <div className="bg-white py-10 mx-5">
         {productsAll ? (
           <>
+            <div className="flex justify-end mr-5">
+              <PopoverApp />
+            </div>
             <CardScreen data={productsAll} />
           </>
         ) : (

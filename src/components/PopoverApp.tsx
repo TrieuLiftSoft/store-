@@ -32,7 +32,7 @@ const PopoverApp = () => {
           </Button>
         </PopoverTrigger>
       </Badge>
-      <PopoverContent className="p-4">
+      <PopoverContent className="p-4 ">
         <FormCart />
       </PopoverContent>
     </Popover>
