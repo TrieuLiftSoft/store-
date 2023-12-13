@@ -17,7 +17,7 @@ const ModalSuccess = () => {
     if (isSuccess) {
       const timeoutId = setTimeout(() => {
         setSuccessFalse();
-      }, 3000);
+      }, 2500);
       return () => clearTimeout(timeoutId);
     }
   }, [isSuccess]);

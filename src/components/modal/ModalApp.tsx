@@ -7,7 +7,7 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import FromCreateApp from "../Form/FormCreateApp";
+import FromCreateApp from "../form/FormCreateApp";
 
 const ModalApp = ({
   titleModal,
