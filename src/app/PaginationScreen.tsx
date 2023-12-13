@@ -62,7 +62,7 @@ const PaginationScreen = () => {
   }
 
   return (
-    <div className="">
+    <div className="drop-shadow-xl">
       <Table aria-label="Example  table with dynamic content" className="">
         <TableHeader columns={columns}>
           {(column) => (
@@ -80,7 +80,7 @@ const PaginationScreen = () => {
         </TableBody>
       </Table>
       <Pagination
-        className="flex justify-center mt-1 overflow-auto"
+        className="flex justify-center mt-2 overflow-auto"
         isCompact
         showControls
         total={totalPage}

@@ -20,7 +20,7 @@ const Home = () => {
       <div className="h-[35vh] m-10">
         <PaginationScreen />
       </div>
-      <div className="bg-white py-10 mx-5">
+      <div className="bg-slate-50 py-10 mx-5">
         {productsAll ? (
           <>
             <div className="flex justify-end mr-5">

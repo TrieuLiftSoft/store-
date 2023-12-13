@@ -10,7 +10,7 @@ import ModalSuccess from "./modal/ModalSuccess";
 
 export default function NarBav() {
   return (
-    <Navbar className="border-b-1">
+    <Navbar className="border-b-1 ">
       <NavbarBrand>
         <Link to="/">
           <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
@@ -23,7 +23,6 @@ export default function NarBav() {
           <ModalApp titleModal={"CREATE FORM"} textBtn={"Create Product"} />
         </NavbarItem>
       </NavbarContent>
-
       <ModalSuccess />
     </Navbar>
   );

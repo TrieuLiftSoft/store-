@@ -13,11 +13,11 @@ const CardScreen = ({ data }: { data: CardAppProps }) => {
     addToCart(item, 1);
   };
   return (
-    <div className="mt-8 mx-2  gap-4 gap-y-8 grid  grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+    <div className="mt-8 mx-2  gap-4 gap-y-8 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {data?.products?.map((item: InitProducts) => (
         <div
           key={item.id}
-          className=" relative grid max-w-xs bg-white rounded-2xl shadow-lg  transition duration-300 ease-in-out hover:scale-110 dark:bg-gray-800 dark:border-gray-700"
+          className=" relative  grid max-w-xs bg-white  rounded-2xl drop-shadow-2xl  transition duration-50 ease-in-out hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
         >
           <div className="pb-2 rounded-lg  overflow-visible ">
             <img
