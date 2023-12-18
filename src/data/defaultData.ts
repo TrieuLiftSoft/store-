@@ -1,17 +1,3 @@
-export const columns = [
-  {
-    key: "id",
-    label: "ID",
-  },
-  {
-    key: "title",
-    label: "TITLE",
-  },
-  {
-    key: "price",
-    label: "PRICE",
-  },
-];
 
 export const ratingData = [
   { value: 0, label: "No Choose" },

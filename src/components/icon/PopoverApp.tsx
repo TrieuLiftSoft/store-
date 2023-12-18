@@ -7,10 +7,11 @@ import {
   Button,
 } from "@nextui-org/react";
 import { CartIcon } from "./CartIcon";
-import { storeProduct, useInitActions } from "../store/ZustandStore";
-import FormCart from "./form/FormCart";
+import { storeProduct, useInitActions } from "../../store/ZustandStore";
+import FormCart from "../form/FormCart";
 const PopoverApp = () => {
   const { getTotalQuantity } = useInitActions();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { cart } = storeProduct();
   return (
     <Popover placement="bottom-end">
@@ -26,7 +27,7 @@ const PopoverApp = () => {
             className="ml-4"
             size="lg"
             color="primary"
-            variant="ghost"
+            variant="light"
           >
             <CartIcon size={50} />
           </Button>

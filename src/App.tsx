@@ -3,7 +3,7 @@ import Home from "./app/Home";
 import NotFound from "./app/NotFound";
 import PaginationScreen from "./app/PaginationScreen";
 import About from "./app/About";
-import NarBav from "./components/Navbar";
+import NarBav from "./components/layout/Navbar";
 
 export default function App() {
   const location = useLocation();
@@ -13,8 +13,9 @@ export default function App() {
     <div>
       {path === "about" ? null : <NarBav />}
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<Home />}>
         <Route path="page/:pageNumber" element={<PaginationScreen />} />
+        </Route>
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

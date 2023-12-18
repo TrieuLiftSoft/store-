@@ -52,5 +52,4 @@ export const storeProduct: any = create<ICartStore>()((set) => ({
   },
 }));
 
-export const useInitActions = () =>
-  storeProduct((state: ICartStore) => state.action);
+export const useInitActions = () => storeProduct((state: ICartStore) => state.action);
