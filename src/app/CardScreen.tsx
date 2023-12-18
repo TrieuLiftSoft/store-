@@ -1,20 +1,19 @@
 import React from "react";
 import RatingCard from "../components/RatingCard";
-import { CardAppProps, InitProducts } from "../model/InitProducts";
+import { ICardAppProps, IProducts } from "../model/InitProducts";
 import { Button } from "@nextui-org/react";
 import ModalApp from "../components/modal/ModalApp";
 import ModalDelete from "../components/modal/ModalDelete";
-import useStoreProduct from "../store/ZustandStore";
+import { useInitActions } from "../store/ZustandStore";
 
-const CardScreen = ({ data }: { data: CardAppProps }) => {
-  const { addToCart } = useStoreProduct();
-
-  const handleAddToCart = (item: InitProducts) => {
+const CardScreen = ({ data }: { data: ICardAppProps }) => {
+  const { addToCart } = useInitActions();
+  const handleAddToCart = (item: IProducts) => {
     addToCart(item, 1);
   };
   return (
     <div className="mt-8 mx-2  gap-4 gap-y-8 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-      {data?.products?.map((item: InitProducts) => (
+      {data?.products?.map((item: IProducts) => (
         <div
           key={item.id}
           className=" relative  grid max-w-xs bg-white  rounded-2xl drop-shadow-2xl  transition duration-50 ease-in-out hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
@@ -52,11 +51,12 @@ const CardScreen = ({ data }: { data: CardAppProps }) => {
               <p className=" text-[12px] ">{item?.description}</p>
               <RatingCard rating={item?.rating} />
             </div>
-            <div className="flex flex-col items-center justify-between">
+            <div className="flex flex-col items-center    justify-between">
               <span className="text-4xl font-bold text-gray-900 dark:text-white">
                 ${item?.price}
               </span>
-              <p className="text-red-500 text-[14px]">
+              <></>
+              <p className="text-red-500  truncate h-[40px] text-[14px]">
                 -%{item?.discountPercentage}
               </p>
 

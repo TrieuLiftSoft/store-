@@ -1,20 +1,22 @@
-import { InitProducts } from "./InitProducts";
+import { IProducts } from "./InitProducts";
 
 export interface MyStore {
   isSuccess: boolean;
   setSuccessTrue: () => void;
   setSuccessFalse: () => void;
 }
-export interface CartItem {
-  product: InitProducts;
+export interface ICartItem {
+  product: IProducts;
   quantity: number;
 }
 
-export interface CartStore {
-  cart: Array<CartItem>;
-  deleteToCart: (productId: number) => void;
-  addToCart: (product: InitProducts, quantity: number) => void;
-  getQuantity: (productId: number) => number;
-  getTotalQuantity: () => number;
-  getTotalPrice: () => number;
+export interface ICartStore {
+  cart: Array<ICartItem>;
+  action: {
+    deleteToCart: (productId: number) => void;
+    addToCart: (product: IProducts, quantity: number) => void;
+    getQuantity: (productId: number) => number;
+    getTotalQuantity: () => number;
+    getTotalPrice: () => number;
+  };
 }

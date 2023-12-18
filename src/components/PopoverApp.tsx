@@ -7,11 +7,11 @@ import {
   Button,
 } from "@nextui-org/react";
 import { CartIcon } from "./CartIcon";
-import useStoreProduct from "../store/ZustandStore";
-
+import { storeProduct, useInitActions } from "../store/ZustandStore";
 import FormCart from "./form/FormCart";
 const PopoverApp = () => {
-  const { getTotalQuantity } = useStoreProduct();
+  const { getTotalQuantity } = useInitActions();
+  const { cart } = storeProduct();
   return (
     <Popover placement="bottom-end">
       <Badge

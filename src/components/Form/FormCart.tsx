@@ -1,21 +1,21 @@
 import React from "react";
-import { CartItem } from "../../model/InitStore";
-import useStoreProduct from "../../store/ZustandStore";
+import { ICartItem } from "../../model/InitStore";
+import { useInitActions, storeProduct } from "../../store/ZustandStore";
 import { Button } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 
 const FormCart = () => {
-  const { cart, getQuantity, deleteToCart, getTotalQuantity, getTotalPrice } =
-    useStoreProduct();
+  const { getQuantity, deleteToCart, getTotalPrice } = useInitActions();
+  const { cart } = storeProduct();
   const handleDeleteToCart = (id: number) => {
     deleteToCart(id);
   };
   return (
     <div>
       <div>
-        {cart?.map((item: CartItem, index: number) => (
+        {cart?.map((item: ICartItem, index: number) => (
           <div key={index}>
-            <div className="grid grid-col-4 grid-flow-col gap-4">
+            <div className="grid grid-col-4 border-b-2  grid-flow-col gap-4">
               <div>
                 <img
                   className="object-cover border-1 h-[30px] w-[40px] rounded-lg  "
@@ -39,7 +39,7 @@ const FormCart = () => {
                   onClick={() => handleDeleteToCart(item.product.id)}
                 >
                   <Image
-                    width={20}
+                    width={22}
                     alt="NextUI hero Image"
                     src="/image/red-trash-can-icon.svg"
                   />
@@ -48,10 +48,9 @@ const FormCart = () => {
             </div>
           </div>
         ))}
-        <div className="font-bold ">Total = {getTotalQuantity()}</div>
-        <div className="font-bold">
-          TotalPrice ={" "}
-          <span className="text-green-500">${getTotalPrice()}</span>
+        <div className="font-bold text-xl m-1">
+          Total Price ={" "}
+          <span className="text-green-500">💵{getTotalPrice()}</span>
         </div>
       </div>
     </div>
