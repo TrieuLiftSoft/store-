@@ -15,7 +15,7 @@ export const fetchProducts = async () => {
   }
 };
 
-export const fetchPaginationAPI = async (limit: number, skip: any) => {
+export const fetchPaginationAPI = async (limit: number, skip: number) => {
   try {
     const response = await getPaginationAPI(limit, skip);
     return response;
