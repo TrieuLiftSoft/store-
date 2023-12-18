@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 import { Button, ModalBody } from "@nextui-org/react";
 import { FormProvider } from "react-hook-form";
 import InputApp from "../input/InputApp";
-import { InitItemProducts } from "../../model/InitProducts";
+import { IProductsItemOption } from "../../model/InitProducts";
 import { useMutation } from "react-query";
 import { createProductAPI, editProductAPI } from "../../api/ApiPage";
 import InputSelect from "../input/InputRating";
 import useNotification from "../../store/NotificationStore";
 import TextareaApp from "../input/TextareaApp";
-import { useCreateForm } from "../../data/useFormdata";
-import { useQueryEdit } from "../../api/useQueryProduct";
+import { useCreateForm } from "../../data/formData";
+import { useQueryEdit } from "../../api/QueryProductApi";
 
 const FromCreateApp = ({
   textBtn,
@@ -31,15 +31,9 @@ const FromCreateApp = ({
   } = methods;
 
   /////
-  //reset state  using edit form
-  useEffect(() => {
-    reset(defaultValuesEdit);
-  }, [itemId, editProduct]);
-
-  /////
   /// handle mMutation
   const addItemMutation = useMutation({
-    mutationFn: ({ data }: { data: InitItemProducts }) =>
+    mutationFn: ({ data }: { data: IProductsItemOption }) =>
       createProductAPI(data),
     onSuccess: (data) => {
       reset();
@@ -59,11 +53,10 @@ const FromCreateApp = ({
       data,
     }: {
       itemId: number;
-      data: InitItemProducts;
+      data: IProductsItemOption;
     }) => editProductAPI(itemId, data),
     onSuccess: (data) => {
       setSuccessTrue();
-      reset();
       console.log(data, "edit success");
     },
     onError: (error) => {
@@ -73,7 +66,7 @@ const FromCreateApp = ({
   ////
   //handel form
 
-  const onSubmit = async (data: InitItemProducts) => {
+  const onSubmit = async (data: IProductsItemOption) => {
     console.log(data, "FORM CREATE");
     if (itemId !== undefined) {
       await editItemMutation.mutate({ itemId, data });
@@ -82,6 +75,11 @@ const FromCreateApp = ({
     }
   };
   ///
+  /////
+  //reset state  using edit form
+  useEffect(() => {
+    reset(defaultValuesEdit);
+  }, [itemId, editProduct]);
 
   return (
     <>

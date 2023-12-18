@@ -1,25 +1,27 @@
 import React from "react";
 import CardScreen from "./CardScreen";
-import { useQueryProducts } from "../api/useQueryProduct";
-import PaginationScreen from "./PaginationScreen";
+import { useQueryProducts } from "../api/QueryProductApi";
 import PopoverApp from "../components/PopoverApp";
-import NarBav from "../components/Navbar";
 
 const Home = () => {
   const { data: productsAll, isLoading, error } = useQueryProducts();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center bg-white text-2xl ">
+        <p>Loading...</p>
+      </div>
+    );
   }
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <div className="flex justify-center bg-white text-2xl ">
+        <p className="text-red-400">Error: {error.message}</p>
+      </div>
+    );
   }
   return (
     <div className="">
-      <NarBav />
-      <div className="h-[35vh] m-10">
-        <PaginationScreen />
-      </div>
       <div className="bg-slate-50 py-10 mx-5">
         {productsAll ? (
           <>

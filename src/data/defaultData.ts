@@ -12,33 +12,6 @@ export const columns = [
     label: "PRICE",
   },
 ];
-export const PaginationTable = [
-  {
-    id: 1,
-    price: 0.0,
-    title: "............................",
-  },
-  {
-    id: 2,
-    price: 0.0,
-    title: "............................",
-  },
-  {
-    id: 3,
-    price: 0.0,
-    title: "............................",
-  },
-  {
-    id: 4,
-    price: 0.0,
-    title: "............................",
-  },
-  {
-    id: 5,
-    price: 0.0,
-    title: "............................",
-  },
-];
 
 export const ratingData = [
   { value: 0, label: "No Choose" },

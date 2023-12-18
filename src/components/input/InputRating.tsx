@@ -3,6 +3,11 @@ import { Control, Controller, FieldValues } from "react-hook-form";
 import { SelectItem, Select } from "@nextui-org/react";
 import { ratingData } from "../../data/defaultData";
 
+interface IratingData {
+  value?: number;
+  label?: string;
+}
+
 const InputSelect = ({ control }: { control?: Control<FieldValues> }) => {
   return (
     <section>
@@ -18,7 +23,7 @@ const InputSelect = ({ control }: { control?: Control<FieldValues> }) => {
               value={value}
               onChange={onChange}
             >
-              {ratingData.map((e: any, index: number) => {
+              {ratingData.map((e: IratingData, index: number) => {
                 return (
                   <SelectItem key={index} value={e.value}>
                     {e.label}

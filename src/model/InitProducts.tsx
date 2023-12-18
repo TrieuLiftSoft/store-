@@ -1,4 +1,4 @@
-export interface InitProducts {
+export interface IProducts {
   brand?: string;
   category?: string;
   description?: string;
@@ -11,7 +11,7 @@ export interface InitProducts {
   thumbnail?: string;
   title?: string;
 }
-export interface InitItemProducts {
+export interface IProductsItemOption {
   brand?: string;
   category?: string;
   description?: string;
@@ -23,24 +23,19 @@ export interface InitItemProducts {
   thumbnail?: string;
   title?: string;
 }
-export interface dataProducts {
+export interface IDataProducts {
   limit?: number;
-  products?: InitProducts[];
+  products?: IProducts[];
   skip?: number;
   total?: number;
 }
-export interface CardAppProps {
-  products: InitProducts[];
-  data: dataProducts[];
+export interface ICardAppProps {
+  products: IProducts[];
+  data: IDataProducts[];
 }
 
-export interface InitProductsPagination {
-  id: number;
-  title: string;
-  price: number;
-}
-export interface InitPagination {
-  products: InitProductsPagination[];
+export interface IPagination {
+  products: IProducts[];
   total: number;
   skip: number;
   limit: number;

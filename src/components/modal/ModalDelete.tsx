@@ -22,7 +22,6 @@ const ModalDelete = ({ id }: { id: number }) => {
     onSuccess: () => {
       setSuccessTrue();
       console.log("Delete success");
-      
     },
     onError: () => {
       console.error("Delete error ");
@@ -31,8 +30,6 @@ const ModalDelete = ({ id }: { id: number }) => {
   const handleDelete = async () => {
     await deleteItemMutation.mutate({ id });
   };
-
-
 
   return (
     <>
