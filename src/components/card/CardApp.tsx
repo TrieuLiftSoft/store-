@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { Button, Checkbox } from "@nextui-org/react";
 import RatingCard from "../icon/RatingCard";
 import { IDataProducts, IProducts } from "../../model/InitProducts";
-import { Button, Checkbox } from "@nextui-org/react";
 import ModalApp from "../modal/ModalApp";
 import ModalDelete from "../modal/ModalDelete";
 import { useInitActions } from "../../store/ZustandStore";
-
 
 const CardScreen = ({ data }: { data?: IDataProducts }) => {
   const { addToCart } = useInitActions();
@@ -25,19 +24,12 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === data.id ? !item : item,
     );
-    // check id true
     const checkID = listItem?.some((item) => item.id === data.id);
-    // check Obj  === []  -> add item to Obj
     if (listItem?.length === 0) {
       setListItem((listItem) => [...(listItem || []), data]);
-    }
-    //// check Obj length > 0  and item.id != data.id -> add item to Obj
-    else if (listItem?.length > 0 && checkID === false) {
+    } else if (listItem?.length > 0 && checkID === false) {
       setListItem((listItem) => [...(listItem || []), data]);
-    }
-    //// check Obj != undefined  and checkState === true and item.id === data.id
-    ///->  create Obj not data.id , set localStorage , update count  length
-    else if (
+    } else if (
       listItem !== undefined &&
       checkedState[data.id] &&
       checkID === true
@@ -65,7 +57,7 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
       setListItem(listItemData);
     }
   }, []);
-  
+
   return (
     <div className="mt-8 mx-2  gap-4 gap-y-8 grid grid-cols-1  sm:grid-cols-2  lg:grid-cols-2 xl:grid-cols-3 ">
       {data?.products?.map((item: IProducts) => (
@@ -88,47 +80,40 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
             </div>
 
             <RatingCard rating={item?.rating} />
-
           </div>
           <div className="px-4 pb-3 flex flex-col justify-between align-bottom ">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                {item?.title}
-              </h5>{" "}
-              <p className="text-[14px]">
-                Brand : <span className="text-blue-500">{item?.brand}</span>
-              </p>
-              <p className="text-[14px]">Number: {item?.stock}</p>
-              <p className="text-gray-400">#{item?.category}</p>
-              <p className=" text-[12px] ">{item?.description}</p>
-
-              <span className="text-4xl font-bold text-gray-900 dark:text-white">
-                ${item?.price}
-              </span>
-              <p className="text-red-500  truncate h-[40px] text-[14px]">
-                -%{item?.discountPercentage}
-              </p>
-
-              <div className="flex flex-row justify-between  ">
-                <ModalApp
-                  itemId={item.id}
-                  titleModal={"EDIT FORM"}
-                  textBtn={"Edit"}
-                />
-                <div>
-
-                  <Button
-                    color="primary"
-                    variant="shadow"
-                    onClick={() => handleAddToCart(item)}
-                  >
-                    ADD ITEM
-                  </Button>
-                </div>
+            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              {item?.title}
+            </h5>{" "}
+            <p className="text-[14px]">
+              Brand : <span className="text-blue-500">{item?.brand}</span>
+            </p>
+            <p className="text-[14px]">Number: {item?.stock}</p>
+            <p className="text-gray-400">#{item?.category}</p>
+            <p className=" text-[12px] ">{item?.description}</p>
+            <span className="text-4xl font-bold text-gray-900 dark:text-white">
+              ${item?.price}
+            </span>
+            <p className="text-red-500  truncate h-[40px] text-[14px]">
+              -%{item?.discountPercentage}
+            </p>
+            <div className="flex flex-row justify-between  ">
+              <ModalApp
+                itemId={item.id}
+                titleModal={"EDIT FORM"}
+                textBtn={"Edit"}
+              />
+              <div>
+                <Button
+                  color="primary"
+                  variant="shadow"
+                  onClick={() => handleAddToCart(item)}
+                >
+                  ADD ITEM
+                </Button>
+              </div>
             </div>
-
-
           </div>
-
         </div>
       ))}
     </div>

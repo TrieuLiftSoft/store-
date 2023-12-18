@@ -2,9 +2,9 @@
 import React, { useEffect } from "react";
 import { Button, ModalBody } from "@nextui-org/react";
 import { FormProvider } from "react-hook-form";
+import { useMutation } from "react-query";
 import InputApp from "../input/InputApp";
 import { IProductsItemOption } from "../../model/InitProducts";
-import { useMutation } from "react-query";
 import { createProductAPI, editProductAPI } from "../../api/ApiPage";
 import InputSelect from "../input/InputRating";
 import useNotification from "../../store/NotificationStore";
@@ -30,8 +30,6 @@ const FromCreateApp = ({
     formState: { isDirty },
   } = methods;
 
-  /////
-  /// handle mMutation
   const addItemMutation = useMutation({
     mutationFn: ({ data }: { data: IProductsItemOption }) =>
       createProductAPI(data),
@@ -41,9 +39,7 @@ const FromCreateApp = ({
       console.log(data, "create success");
     },
     onError: (error) => {
-      // Handle mutation error
       console.error(error, "create error ");
-      // You can show an error message or perform other error-related actions here
     },
   });
 
@@ -63,8 +59,6 @@ const FromCreateApp = ({
       console.error(error, "edit error ");
     },
   });
-  ////
-  //handel form
 
   const onSubmit = async (data: IProductsItemOption) => {
     console.log(data, "FORM CREATE");
@@ -74,8 +68,7 @@ const FromCreateApp = ({
       await addItemMutation.mutate({ data });
     }
   };
-  ///
-  /////
+
   //reset state  using edit form
   useEffect(() => {
     reset(defaultValuesEdit);

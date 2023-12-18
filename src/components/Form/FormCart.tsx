@@ -1,8 +1,7 @@
 import React from "react";
+import { Button, Image } from "@nextui-org/react";
 import { ICartItem } from "../../model/InitStore";
 import { useInitActions, storeProduct } from "../../store/ZustandStore";
-import { Button } from "@nextui-org/react";
-import { Image } from "@nextui-org/react";
 
 const FormCart = () => {
   const { getQuantity, deleteToCart, getTotalPrice } = useInitActions();
@@ -10,6 +9,7 @@ const FormCart = () => {
   const handleDeleteToCart = (id: number) => {
     deleteToCart(id);
   };
+
   return (
     <div>
       <div>

@@ -8,9 +8,9 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+import { useMutation } from "react-query";
 import useNotification from "../../store/NotificationStore";
 import { fetchDeleteProducts } from "../../api/ProductApi";
-import { useMutation } from "react-query";
 
 const ModalDelete = ({ id }: { id: number }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

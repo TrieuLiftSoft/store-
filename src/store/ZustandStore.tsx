@@ -1,7 +1,6 @@
-// itemStore.ts
 import { create } from "zustand";
-import { ICartItem, ICartStore } from "../model/InitStore";
 import produce from "immer";
+import { ICartItem, ICartStore } from "../model/InitStore";
 
 export const storeProduct: any = create<ICartStore>()((set) => ({
   cart: [],
@@ -52,4 +51,5 @@ export const storeProduct: any = create<ICartStore>()((set) => ({
   },
 }));
 
-export const useInitActions = () => storeProduct((state: ICartStore) => state.action);
+export const useInitActions = () =>
+  storeProduct((state: ICartStore) => state.action);

@@ -21,13 +21,13 @@ export default function NarBav() {
       </NavbarBrand>
       <NavbarContent className=" gap-4  " justify="end">
         <NavbarItem className="flex flex-row  ">
-           <div className="flex justify-end px-4">
-        <Link to="/about">
-            <p className="text-blue-400 font-serif hover:text-gray-400 font-extrabold">
-              About{" "}
-            </p>
-        </Link>
-      </div>
+          <div className="flex justify-end px-4">
+            <Link to="/about">
+              <p className="text-blue-400 font-serif hover:text-gray-400 font-extrabold">
+                About{" "}
+              </p>
+            </Link>
+          </div>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className=" gap-4  " justify="end">

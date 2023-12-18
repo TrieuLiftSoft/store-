@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import { Pagination } from "@nextui-org/react";
-import { useQueryPagination } from "../api/QueryProductApi";
 import { useParams, useNavigate } from "react-router-dom";
-import CardScreen from '../components/card/CardApp';
+import { useQueryPagination } from "../api/QueryProductApi";
+import CardScreen from "../components/card/CardApp";
 
 const pageSize = 6;
 const totalPage = 10;
 
-const PaginationScreen =() => {
+const PaginationScreen = () => {
   const params = useParams();
   const idPage = Number(params.pageNumber);
   const navigate = useNavigate();
@@ -18,13 +18,16 @@ const PaginationScreen =() => {
     isError,
     data: paginationData,
   } = useQueryPagination(pageSize, skipState);
-  
+
   /// handle click Pagination
-  const handlePagination =  useCallback((page: number) => {
-        const skipPage = (page - 1) * pageSize;
-        setSkipState(skipPage);
-        navigate(`/page/${page}`);
-  },[skipState]);
+  const handlePagination = useCallback(
+    (page: number) => {
+      const skipPage = (page - 1) * pageSize;
+      setSkipState(skipPage);
+      navigate(`/page/${page}`);
+    },
+    [skipState],
+  );
 
   useEffect(() => {
     if (idPage > 1) {
@@ -54,11 +57,11 @@ const PaginationScreen =() => {
   if (isError) {
     return <div>Error fetching data</div>;
   }
- 
+
   return (
     <div className="m-4 h-[100vh]">
       <div className="">
-      <CardScreen data={paginationData} />
+        <CardScreen data={paginationData} />
       </div>
       <Pagination
         className="flex justify-center mt-2 overflow-auto"

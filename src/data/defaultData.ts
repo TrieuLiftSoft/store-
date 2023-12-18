@@ -1,4 +1,3 @@
-
 export const ratingData = [
   { value: 0, label: "No Choose" },
   { value: 1, label: "1 ⭐" },

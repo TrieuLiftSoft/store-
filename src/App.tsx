@@ -14,7 +14,7 @@ export default function App() {
       {path === "about" ? null : <NarBav />}
       <Routes>
         <Route path="/" element={<Home />}>
-        <Route path="page/:pageNumber" element={<PaginationScreen />} />
+          <Route path="page/:pageNumber" element={<PaginationScreen />} />
         </Route>
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
