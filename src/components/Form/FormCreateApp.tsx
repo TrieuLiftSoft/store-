@@ -53,6 +53,7 @@ const FromCreateApp = ({
     }) => editProductAPI(itemId, data),
     onSuccess: (data) => {
       setSuccessTrue();
+      reset();
       console.log(data, "edit success");
     },
     onError: (error) => {

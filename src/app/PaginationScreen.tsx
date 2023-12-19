@@ -68,7 +68,7 @@ const PaginationScreen = () => {
         showControls
         total={totalPage}
         onChange={handlePagination}
-        initialPage={idPage | 1 }
+        initialPage={idPage | 1}
       />
     </div>
   );

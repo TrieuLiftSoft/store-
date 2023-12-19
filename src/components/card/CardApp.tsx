@@ -20,7 +20,6 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
   };
 
   const handleAddProduct = (data: IProducts) => {
-    /// set State  true or false to array
     const updatedCheckedState = checkedState.map((item, index) =>
       index === data.id ? !item : item,
     );
@@ -60,9 +59,9 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
 
   return (
     <div className="mt-8 mx-2  gap-4 gap-y-8 grid grid-cols-1  sm:grid-cols-2  lg:grid-cols-2 xl:grid-cols-3 ">
-      {data?.products?.map((item: IProducts) => (
+      {data?.products?.map((item: IProducts, index: number) => (
         <div
-          key={item.id}
+          key={index}
           className=" relative flex flex-row  p-4 bg-white  rounded-2xl drop-shadow-2xl  transition duration-50 ease-in-out hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
         >
           <div>

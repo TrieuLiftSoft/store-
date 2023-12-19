@@ -14,7 +14,6 @@ import { fetchDeleteProducts } from "../../api/ProductApi";
 
 const ModalDelete = ({ id }: { id: number }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   const setSuccessTrue = useNotification((state) => state.setSuccessTrue);
 
   const deleteItemMutation = useMutation({
@@ -27,6 +26,7 @@ const ModalDelete = ({ id }: { id: number }) => {
       console.error("Delete error ");
     },
   });
+
   const handleDelete = async () => {
     await deleteItemMutation.mutate({ id });
   };

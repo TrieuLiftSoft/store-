@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Control, Controller, FieldValues } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { SelectItem, Select } from "@nextui-org/react";
 import { ratingData } from "../../data/defaultData";
 
@@ -8,7 +8,8 @@ interface IratingData {
   label?: string;
 }
 
-const InputSelect = ({ control }: { control?: Control<FieldValues> }) => {
+const InputSelect = () => {
+  const { control } = useFormContext();
   return (
     <section>
       <label htmlFor="rating-select">Rating</label>
