@@ -19,7 +19,6 @@ const PaginationScreen = () => {
     data: paginationData,
   } = useQueryPagination(pageSize, skipState);
 
-  /// handle click Pagination
   const handlePagination = useCallback(
     (page: number) => {
       const skipPage = (page - 1) * pageSize;
@@ -48,7 +47,7 @@ const PaginationScreen = () => {
           isCompact
           showControls
           total={10}
-          initialPage={idPage}
+          initialPage={idPage | 1}
         />
       </div>
     );
@@ -69,7 +68,7 @@ const PaginationScreen = () => {
         showControls
         total={totalPage}
         onChange={handlePagination}
-        initialPage={idPage}
+        initialPage={idPage | 1 }
       />
     </div>
   );
