@@ -12,7 +12,7 @@ import { useMutation } from "react-query";
 import useNotification from "../../store/NotificationStore";
 import { fetchDeleteProducts } from "../../api/ProductApi";
 
-const ModalDelete = ({ id }: { id: number }) => {
+const ModalDelete = ({ id ,title}: { id: number ,title ?:string}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const setSuccessTrue = useNotification((state) => state.setSuccessTrue);
 
@@ -38,9 +38,8 @@ const ModalDelete = ({ id }: { id: number }) => {
           onPress={onOpen}
           isIconOnly
           color="danger"
-          className="absolute top-0 right-0 rounded-lg "
+          className="absolute  top-0 right-0 rounded-lg "
           size="sm"
-          aria-label="Like"
         >
           x
         </Button>
@@ -51,9 +50,8 @@ const ModalDelete = ({ id }: { id: number }) => {
             <>
               <ModalHeader className="flex flex-col gap-1"></ModalHeader>
               <ModalBody>
-                <p className="text-4xl  font-extrabold ">
-                  You sure <span className="text-red-400">delete </span> product
-                  !
+                <p className="">
+                  You sure <span className="text-red-400">delete </span> product ? <div className="text-2xl font-extrabold">{title}</div>
                 </p>
               </ModalBody>
               <ModalFooter>

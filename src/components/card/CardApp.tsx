@@ -58,12 +58,13 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
   }, []);
 
   return (
-    <div className="mt-8 mx-2  gap-4 gap-y-8 grid grid-cols-1  sm:grid-cols-2  lg:grid-cols-2 xl:grid-cols-3 ">
+    <div className="mt-8 mx-2  gap-8 gap-y-8 grid grid-cols-1  md:grid-cols-2  xl:grid-cols-3">
       {data?.products?.map((item: IProducts, index: number) => (
         <div
           key={index}
-          className=" relative flex flex-row  p-4 bg-white  rounded-2xl drop-shadow-2xl  transition duration-50 ease-in-out hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
+          className=" relative flex flex-row hover:bg-[#F3F8FF]  px-8 py-4 bg-white  rounded-xl drop-shadow-2xl  transition duration-50 ease-in-out hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
         >
+           <ModalDelete id={item.id} title={item?.title} />
           <div>
             <Checkbox
               isSelected={checkedState[item.id]}
@@ -71,17 +72,16 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
             />
             <div className="pb-2 rounded-lg  overflow-visible ">
               <img
-                className="object-cover h-48 w-full rounded-lg  "
+                className="object-cover h-48 w-40 rounded-lg   "
                 src={item?.images[0]}
                 alt="product"
               />
-              <ModalDelete id={item.id} />
             </div>
 
             <RatingCard rating={item?.rating} />
           </div>
-          <div className="px-4 pb-3 flex flex-col justify-between align-bottom ">
-            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+          <div className=" truncate  px-4 pb-3 flex flex-col justify-between align-bottom ">
+            <h5 className=" text-xl w-[200px] font-semibold tracking-tight text-gray-900 dark:text-white">
               {item?.title}
             </h5>{" "}
             <p className="text-[14px]">
@@ -96,7 +96,7 @@ const CardScreen = ({ data }: { data?: IDataProducts }) => {
             <p className="text-red-500  truncate h-[40px] text-[14px]">
               -%{item?.discountPercentage}
             </p>
-            <div className="flex flex-row justify-between  ">
+            <div className="flex flex-col-reverse sm:flex-row justify-center  sm:justify-between  ">
               <ModalApp
                 itemId={item.id}
                 titleModal={"EDIT FORM"}

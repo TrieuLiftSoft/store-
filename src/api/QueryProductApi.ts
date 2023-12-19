@@ -10,6 +10,7 @@ export const useQueryProducts = () => {
   return useQuery({
     queryKey: ["productsAll"],
     queryFn: fetchProducts,
+    staleTime: 30000,
   }) as UseQueryResult<ICardAppProps, Error>;
 };
 
@@ -29,5 +30,6 @@ export const useQueryEdit = (id?: number): UseQueryResult<IProducts, Error> => {
     enabled: id !== undefined,
     queryKey: ["editProduct", id],
     queryFn: () => fetchEditProducts(id),
+    staleTime: 30000,
   });
 };

@@ -1,11 +1,9 @@
 import React from "react";
-import PaginationScreen from "./PaginationScreen";
+import ProductsScreen from "./ProductsScreen";
 
 const Home = () => {
   return (
-    <div className="">
-      <PaginationScreen />
-    </div>
+      <ProductsScreen />
   );
 };
 

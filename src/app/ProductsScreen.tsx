@@ -5,10 +5,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQueryPagination } from "../api/QueryProductApi";
 import CardScreen from "../components/card/CardApp";
 
+
 const pageSize = 6;
 const totalPage = 10;
 
-const PaginationScreen = () => {
+const ProductsScreen = () => {
   const params = useParams();
   const idPage = Number(params.pageNumber);
   const navigate = useNavigate();
@@ -21,11 +22,13 @@ const PaginationScreen = () => {
 
   const handlePagination = useCallback(
     (page: number) => {
-      const skipPage = (page - 1) * pageSize;
-      setSkipState(skipPage);
-      navigate(`/page/${page}`);
+      if(page !== undefined){
+        navigate(`/page/${page}`);
+        const skipPage = (page - 1) * pageSize;
+        setSkipState(skipPage);
+      }
     },
-    [skipState],
+    [skipState,navigate],
   );
 
   useEffect(() => {
@@ -33,7 +36,7 @@ const PaginationScreen = () => {
       const skipPageFresher = (idPage - 1) * pageSize;
       setSkipState(skipPageFresher);
     }
-  }, [idPage]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -47,6 +50,7 @@ const PaginationScreen = () => {
           isCompact
           showControls
           total={10}
+          onChange={handlePagination}
           initialPage={idPage | 1}
         />
       </div>
@@ -74,4 +78,4 @@ const PaginationScreen = () => {
   );
 };
 
-export default PaginationScreen;
+export default ProductsScreen;

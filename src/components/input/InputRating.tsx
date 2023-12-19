@@ -3,7 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { SelectItem, Select } from "@nextui-org/react";
 import { ratingData } from "../../data/defaultData";
 
-interface IratingData {
+interface IRatingData {
   value?: number;
   label?: string;
 }
@@ -24,7 +24,7 @@ const InputSelect = () => {
               value={value}
               onChange={onChange}
             >
-              {ratingData.map((e: IratingData, index: number) => {
+              {ratingData.map((e: IRatingData, index: number) => {
                 return (
                   <SelectItem key={index} value={e.value}>
                     {e.label}

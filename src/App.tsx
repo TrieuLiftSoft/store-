@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./app/Home";
 import NotFound from "./app/NotFound";
-import PaginationScreen from "./app/PaginationScreen";
+import ProductsScreen from "./app/ProductsScreen";
 import About from "./app/About";
 import NarBav from "./components/layout/Navbar";
 
@@ -14,7 +14,7 @@ export default function App() {
       {path === "about" ? null : <NarBav />}
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path="page/:pageNumber" element={<PaginationScreen />} />
+          <Route path="page/:pageNumber" element={<ProductsScreen />} />
         </Route>
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
